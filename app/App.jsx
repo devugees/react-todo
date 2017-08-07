@@ -16,11 +16,11 @@ const TodoForm = ({addTodo}) => {
       }}>
       <div className="form-group">
         <label htmlFor="todo-input"><h1>What's up?</h1></label>
-        <input id="todo-input" className="form-control col-md-12" htmlRequired="true" ref={node => {
+        <input id="todo-input" className="form-control" htmlRequired="true" ref={node => {
           input = node;
         }} />
-      </div>
-    </form>
+    </div>
+  </form>
   );
 };
 
@@ -29,14 +29,54 @@ const Title = ({todoCount}) => {
     <div>
       <div>
         <h2>{todoCount} to-do's</h2>
-       </div>
+      </div>
     </div>
   );
 }
 
-const Todo = ({todo, remove}) => {
-  // Each Todo
-  return (<a href="#" className="list-group-item" onClick={() => {remove(todo.id)}}>{todo.text}</a>);
+class Todo extends React.Component{
+  constructor(props){
+    super(props);
+    this.remove = this.props.remove.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+    this.state = {editing: false}
+    this.apiUrl = 'https://57b1924b46b57d1100a3c3f8.mockapi.io/api/todos'
+    let input
+  }
+  handleSave(){
+    console.log(this)
+    //axios.post(this.apiUrl+'/'+id, this.props)
+       //.then((res) => {
+       //});
+        this.setState({editing: false, text: this.ref});
+  }
+  handleEdit(id){
+    this.setState({editing: true});
+  }
+  render(){
+  if (this.state.editing == false) {
+    return (
+      <li className="list-group-item">
+        <a href="#"
+          onClick={() => {this.handleEdit(this.props.todo.id)}}>
+          {this.props.todo.text}
+        </a>
+        <a href="#"
+          className="right"
+          onClick={() => {this.props.remove(this.props.todo.id)}}>
+          x
+        </a>
+      </li>
+    );
+   } else {
+     return(
+     <div>
+      <input defaultValue={this.props.todo.text} id="todo-input" className="form-control" htmlRequired="true" ref={node => { this.input = node; }} />
+      <button onClick={this.handleSave}>save</button>
+    </div>
+     )
+   }
+ }
 }
 
 const TodoList = ({todos, remove}) => {

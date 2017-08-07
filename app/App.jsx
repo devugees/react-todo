@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import axios from 'axios';
 
-console.log("hey")
 
 const TodoForm = ({addTodo}) => {
   // Input Tracker
@@ -40,15 +39,10 @@ class Todo extends React.Component{
     this.remove = this.props.remove.bind(this)
     this.handleSave = this.handleSave.bind(this)
     this.state = {editing: false}
-    this.apiUrl = 'https://57b1924b46b57d1100a3c3f8.mockapi.io/api/todos'
-    let input
   }
   handleSave(){
-    console.log(this)
-    //axios.post(this.apiUrl+'/'+id, this.props)
-       //.then((res) => {
-       //});
-        this.setState({editing: false, text: this.ref});
+    this.setState({editing: false});
+    console.log(this.input.value)
   }
   handleEdit(id){
     this.setState({editing: true});
@@ -71,7 +65,7 @@ class Todo extends React.Component{
    } else {
      return(
      <div>
-      <input defaultValue={this.props.todo.text} id="todo-input" className="form-control" htmlRequired="true" ref={node => { this.input = node; }} />
+      <input defaultValue={this.props.todo.text} id="todo-input" className="form-control" htmlRequired="true" ref={(input) => this.input = input} />
       <button onClick={this.handleSave}>save</button>
     </div>
      )

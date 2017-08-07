@@ -14,11 +14,19 @@ const TodoForm = ({addTodo}) => {
         addTodo(input.value);
         input.value = '';
       }}>
-      <div className="form-group">
-        <label htmlFor="todo-input"><h1>What's up?</h1></label>
+      <label htmlFor="todo-input">What's up?</label>
+      <div className="input-group">
         <input id="todo-input" className="form-control col-md-12" htmlRequired="true" ref={node => {
           input = node;
         }} />
+      <span className="input-group-btn">
+        <button className="btn btn-secondary" onClick={() => {
+          addTodo(input.value);
+          input.value = '';
+        }}>
+          +
+        </button>
+        </span>
       </div>
     </form>
   );
@@ -28,7 +36,7 @@ const Title = ({todoCount}) => {
   return (
     <div>
       <div>
-        <h2>{todoCount} to-do's</h2>
+        <h4>{todoCount} to-do's</h4>
        </div>
     </div>
   );

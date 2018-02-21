@@ -50,13 +50,13 @@ class Todo extends React.Component{
   render(){
   if (this.state.editing == false) {
     return (
-      <li className="list-group-item">
+      <li className="list-group-item justify-content-between">
         <a href="#"
           onClick={() => {this.handleEdit(this.props.todo.id)}}>
           {this.props.todo.text}
         </a>
         <a href="#"
-          className="right"
+          className="btn btn-outline-danger"
           onClick={() => {this.props.remove(this.props.todo.id)}}>
           x
         </a>
